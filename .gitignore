@@ -1,0 +1,5 @@
+/src/main/resources/application.yml
+.gradle
+.idea
+build/
+.DS_Store
