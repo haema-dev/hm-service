@@ -19,14 +19,9 @@ public class RedisController {
     this.redisService = redisService;
   }
 
-  @GetMapping("/redis")
-  public ResponseEntity<Flux<Person>> all() {
-    return ResponseEntity.status(HttpStatus.OK).body(redisService.getAll());
-  }
-
   @GetMapping("/redis/{id}")
   public ResponseEntity<Mono<Person>> getRedisValue(@PathVariable String id) {
-    return ResponseEntity.status(HttpStatus.OK).body(redisService.getRedisValue(id));
+    return ResponseEntity.status(HttpStatus.OK).body(redisService.findByKeyInRedis(id));
   }
 
   @PostMapping("/redis")
