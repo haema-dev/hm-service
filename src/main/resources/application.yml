@@ -1,0 +1,12 @@
+server:
+  port: 8082
+spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6375
+
+vault:
+  uri: http://localhost:8200
+  token: hvs.4aBZ4CfZa9XoI0hPS8J5aQ2H
+  path: /v1/vault-person/data/1
