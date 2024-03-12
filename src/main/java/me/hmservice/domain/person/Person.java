@@ -1,4 +1,4 @@
-package me.hmservice.redis;
+package me.hmservice.domain.person;
 
 
 import java.io.Serializable;
