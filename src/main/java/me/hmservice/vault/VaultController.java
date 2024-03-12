@@ -1,6 +1,5 @@
 package me.hmservice.vault;
 
-import org.springframework.vault.support.VaultResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
