@@ -1,7 +1,7 @@
 package me.hmservice.user;
 
 import me.hmservice.domain.board.Board;
-import me.hmservice.domain.board.BoardDto;
+import me.hmservice.domain.board.BoardReq;
 import me.hmservice.domain.common.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class BoardController {
   }
 
   @PostMapping
-  public ResponseEntity<Result<Board>> createBoard(@RequestBody BoardDto createBoardRequest) {
+  public ResponseEntity<Result<Board>> createBoard(@RequestBody BoardReq createBoardRequest) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(
             Result.success(boardService.createBoard(createBoardRequest.build()))

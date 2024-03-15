@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.sql.Timestamp;
 import lombok.Builder;
 
 
@@ -19,12 +20,12 @@ public class Board {
   private String title;
   private String content;
   private String member_id;
-  private String created_by;
+  private Timestamp created_by;
 
   public Board() { }
 
   @Builder
-  public Board(String title, String content, String member_id, String created_by) {
+  public Board(String title, String content, String member_id, Timestamp created_by) {
     this.title = title;
     this.content = content;
     this.member_id = member_id;
@@ -47,7 +48,7 @@ public class Board {
     return member_id;
   }
 
-  public String getCreated_by() {
+  public Timestamp getCreated_by() {
     return created_by;
   }
 }
