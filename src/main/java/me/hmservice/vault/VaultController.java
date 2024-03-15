@@ -2,7 +2,6 @@ package me.hmservice.vault;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController
 public class VaultController {
@@ -14,7 +13,7 @@ public class VaultController {
   }
 
   @GetMapping("/vault")
-  public Mono<Object> getVault() {
+  public Object getVault() {
     return vaultService.readSecret();
   }
 }

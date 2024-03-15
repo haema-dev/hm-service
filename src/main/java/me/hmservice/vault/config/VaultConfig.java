@@ -2,8 +2,6 @@ package me.hmservice.vault.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 @Component
 public class VaultConfig {
@@ -17,10 +15,15 @@ public class VaultConfig {
   @Value("${vault.token}")
   private String token;
 
-  public Mono<Object> getVault() {
-    return WebClient.create().get().uri(uri + path)
-        .header("X-Vault-Token", token)
-        .retrieve()
-        .bodyToMono(Object.class);
+  public String getUri() {
+    return uri;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  public String getToken() {
+    return token;
   }
 }
