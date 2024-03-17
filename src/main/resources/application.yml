@@ -3,10 +3,22 @@ server:
 spring:
   data:
     redis:
-      host: 127.0.0.1
-      port: 6375
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 vault:
-  uri: http://localhost:8200
-  token: hvs.4aBZ4CfZa9XoI0hPS8J5aQ2H
-  path: /v1/vault-person/data/1
+  uri: ${VAULT_URI}
+  token: ${VAULT_TOKEN}
+  path: ${VAULT_PATH}

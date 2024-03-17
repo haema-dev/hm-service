@@ -1,15 +1,10 @@
 package me.hmservice.domain.common.exception;
 
-
-import java.util.NoSuchElementException;
 import lombok.Getter;
 
 @Getter
-public class NotFoundException extends NoSuchElementException {
-
-  public NotFoundException(String s) {
-  }
-
-  public NotFoundException(String s, String message) {
+public class NotFoundException extends RuntimeException {
+  public NotFoundException(String message) {
+    super(message);
   }
 }

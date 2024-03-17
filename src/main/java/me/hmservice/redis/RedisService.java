@@ -1,41 +1,36 @@
 package me.hmservice.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import me.hmservice.domain.person.Person;
-import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
+@Slf4j
 @Service
 public class RedisService {
 
   // Config 에서 설정해놓은 Template 사용
-  private final ReactiveStringRedisTemplate reactiveRedis;
+  private final RedisTemplate<String, String> redis;
 
-  public RedisService(ReactiveStringRedisTemplate reactiveStringRedisTemplate) {
-    this.reactiveRedis = reactiveStringRedisTemplate;
+  public RedisService(RedisTemplate<String, String> redis) {
+    this.redis = redis;
   }
 
 
-  public Mono<Person> findByKeyInRedis(String key) {
-    System.out.println("key: " + key);
-    return reactiveRedis.opsForValue().get(key).map(data -> new Person(key, data));
+  public Person findByKeyInRedis(String key) {
+    log.info("key: " + key);
+    // TODO: redis에 key에 해당하는 value가 없을 경우 예외처리
+    String name = redis.opsForValue().get(key).toString();
+    return new Person(key, name);
   }
 
 
-  public Mono<Boolean> successRedisValue(Person person) {
-    return reactiveRedis.opsForValue().set(person.getId(), person.getName());
+  public void successRedisValue(Person person) {
+    redis.opsForValue().set(person.getId(), person.getName());
   }
 
-  public Mono<Person> setRedisValue(Person person) {
-    return successRedisValue(person)
-        .flatMap(success -> {
-          if (success) {
-            System.out.println("person: " + person.getId() + ", " + person.getName());
-            return Mono.just(person);
-          } else {
-            return Mono.error(new Exception("Could not save person " + person.getId()));
-          }
-        });
-
+  public Person setRedisValue(Person person) {
+    successRedisValue(person);
+    return new Person(person.getId(), person.getName());
   }
 }

@@ -1,11 +1,11 @@
 package me.hmservice.domain.common.handler;
 
-
-import java.util.NoSuchElementException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import me.hmservice.domain.common.error.ErrorCode;
+import me.hmservice.domain.common.exception.InvalidInputException;
 import me.hmservice.domain.common.result.Result;
-import me.hmservice.domain.common.exception.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  private final Logger log = Logger.getLogger(String.valueOf(GlobalExceptionHandler.class));
+  private static final Logger log = Logger.getLogger(String.valueOf(GlobalExceptionHandler.class));
 
-  @ExceptionHandler(NotFoundException.class)
-  protected ResponseEntity<Result<?>> handleMethodArgumentNotValidException(NoSuchElementException e) {
+  @ExceptionHandler(InvalidInputException.class)
+  public ResponseEntity<Result<Object>> handleIllegalArgumentException(InvalidInputException e) {
+    Result<Object> failureResult
+            = Result.failure(ErrorCode.builder()
+                    .code(HttpStatus.BAD_REQUEST.value())
+                    .message(e.getMessage())
+                    .build());
 
-    log.log(Level.parse("NotFoundException: {}, {} "), e.getMessage(), e.getStackTrace());
+    log.warning(e.getMessage());
 
-    return null;
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(failureResult);
   }
 }

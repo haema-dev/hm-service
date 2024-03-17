@@ -2,9 +2,12 @@ package me.hmservice.domain.person;
 
 
 import java.io.Serializable;
+
+import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
 
 
+@Getter
 @RedisHash
 public class Person implements Serializable {
   private String id;
@@ -16,13 +19,4 @@ public class Person implements Serializable {
     this.id = id;
     this.name = name;
   }
-
-  public String getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
 }

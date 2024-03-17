@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.sql.Timestamp;
 import lombok.Builder;
+import lombok.Getter;
 
 
+@Getter
 @Entity
 public class Board {
 
@@ -32,23 +34,4 @@ public class Board {
     this.created_by = created_by;
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public String getMember_id() {
-    return member_id;
-  }
-
-  public Timestamp getCreated_by() {
-    return created_by;
-  }
 }

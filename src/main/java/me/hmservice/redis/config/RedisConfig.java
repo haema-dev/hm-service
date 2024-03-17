@@ -1,14 +1,12 @@
 package me.hmservice.redis.config;
 
-import me.hmservice.domain.person.Person;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.ReactiveRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -28,24 +26,23 @@ public class RedisConfig {
 
   // RedisConnectionFactory 설정
   @Bean
-  public ReactiveRedisConnectionFactory reactiveRedisConnectionFactory() {
+  public RedisConnectionFactory redisConnectionFactory() {
     return new LettuceConnectionFactory(host, port);
   }
 
-  // Reactive 에서는 ReactiveRedisTemplate 사용을 권장
-  // Serializer 세팅
   @Bean
-  public ReactiveRedisTemplate<String, String> reactiveRedisTemplate() {
-    RedisSerializer<String> key = new StringRedisSerializer();
-    Jackson2JsonRedisSerializer<String> value = new Jackson2JsonRedisSerializer<>(String.class);
-    RedisSerializationContext<String, String> serializationContext = RedisSerializationContext
-        .<String, String>newSerializationContext()
-        .key(key)
-        .value(value)
-        .hashKey(key)
-        .hashValue(value)
-        .build();
+  public RedisTemplate<String, String> redisTemplate() {
+    RedisTemplate<String, String> template = new RedisTemplate<>();
+    template.setConnectionFactory(redisConnectionFactory());
 
-    return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory(), serializationContext);
+    RedisSerializer<String> stringSerializer = new StringRedisSerializer();
+    Jackson2JsonRedisSerializer<String> jsonSerializer = new Jackson2JsonRedisSerializer<>(String.class);
+
+    template.setKeySerializer(stringSerializer);
+    template.setValueSerializer(jsonSerializer);
+    template.setHashKeySerializer(stringSerializer);
+    template.setHashValueSerializer(jsonSerializer);
+
+    return template;
   }
 }
