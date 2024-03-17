@@ -7,5 +7,5 @@
 4. Keycloak 연결 
 
 24.01
-1. Reactive Redis Set Up (2024-01-14)
+1. Reactive Redis Set Up (2024-01-14) -> Redis(not reactive)로 변경 (2024-03-11)
 2. CRUD API (2024-01-28)

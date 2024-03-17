@@ -1,7 +1,5 @@
 package me.hmservice.domain.board;
 
-
-import lombok.NonNull;
 import me.hmservice.domain.common.exception.InvalidInputException;
 
 import java.sql.Timestamp;
@@ -9,11 +7,8 @@ import java.time.LocalDateTime;
 
 // record 는 내부에 자동으로 생성자, getter, equals, hashCode, toString 메소드를 생성해준다.
 public record BoardReq(
-    @NonNull
     String title,
-    @NonNull
     String content,
-    @NonNull
     String member_id
 ) {
 

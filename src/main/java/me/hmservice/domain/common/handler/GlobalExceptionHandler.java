@@ -16,8 +16,8 @@ public class GlobalExceptionHandler {
   private static final Logger log = Logger.getLogger(String.valueOf(GlobalExceptionHandler.class));
 
   @ExceptionHandler(InvalidInputException.class)
-  public ResponseEntity<Result<Object>> handleIllegalArgumentException(InvalidInputException e) {
-    Result<Object> failureResult
+  public ResponseEntity<Result<ErrorCode>> handleIllegalArgumentException(InvalidInputException e) {
+    Result<ErrorCode> failureResult
             = Result.failure(ErrorCode.builder()
                     .code(HttpStatus.BAD_REQUEST.value())
                     .message(e.getMessage())
