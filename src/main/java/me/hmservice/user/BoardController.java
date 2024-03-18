@@ -2,7 +2,7 @@ package me.hmservice.user;
 
 import me.hmservice.domain.board.Board;
 import me.hmservice.domain.board.BoardReq;
-import me.hmservice.domain.common.result.Result;
+import me.hmservice.common.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

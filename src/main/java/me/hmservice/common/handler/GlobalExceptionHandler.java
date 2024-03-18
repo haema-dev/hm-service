@@ -1,12 +1,13 @@
-package me.hmservice.domain.common.handler;
+package me.hmservice.common.handler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import me.hmservice.domain.common.error.ErrorCode;
-import me.hmservice.domain.common.exception.InvalidInputException;
-import me.hmservice.domain.common.exception.NotFoundException.BoardNotFoundException;
-import me.hmservice.domain.common.result.Result;
+import me.hmservice.common.error.ErrorCode;
+import me.hmservice.common.exception.InvalidInputException;
+import me.hmservice.common.exception.NotFoundException.BoardNotFoundException;
+import me.hmservice.common.exception.NotFoundException.KeyNotFoundException;
+import me.hmservice.common.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,6 +32,17 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(BoardNotFoundException.class)
   public ResponseEntity<Result<ErrorCode>> handleBoardNotFoundException(BoardNotFoundException e) {
     logger.log(Level.WARNING, "[BoardNotFoundException] : ", e);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+        Result.failure(ErrorCode.builder()
+            .code(HttpStatus.NOT_FOUND.value())
+            .message(e.getMessage())
+            .build())
+    );
+  }
+
+  @ExceptionHandler(KeyNotFoundException.class)
+  public ResponseEntity<Result<ErrorCode>> handleBoardNotFoundException(KeyNotFoundException e) {
+    logger.log(Level.WARNING, "[KeyNotFoundException] : ", e);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
         Result.failure(ErrorCode.builder()
             .code(HttpStatus.NOT_FOUND.value())

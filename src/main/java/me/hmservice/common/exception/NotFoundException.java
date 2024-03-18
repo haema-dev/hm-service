@@ -1,4 +1,4 @@
-package me.hmservice.domain.common.exception;
+package me.hmservice.common.exception;
 
 import lombok.Getter;
 
@@ -13,6 +13,14 @@ public class NotFoundException extends RuntimeException {
   @Getter
   public static class BoardNotFoundException extends NotFoundException {
     public BoardNotFoundException(String message) {
+      super(message);
+    }
+  }
+
+  @Getter
+  public static class KeyNotFoundException extends NotFoundException {
+
+    public KeyNotFoundException(String message) {
       super(message);
     }
   }

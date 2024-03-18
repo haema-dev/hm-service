@@ -1,6 +1,6 @@
 package me.hmservice.domain.board;
 
-import me.hmservice.domain.common.exception.InvalidInputException;
+import me.hmservice.common.exception.InvalidInputException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

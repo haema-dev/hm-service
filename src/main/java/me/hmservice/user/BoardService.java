@@ -2,8 +2,8 @@ package me.hmservice.user;
 
 import io.micrometer.common.util.StringUtils;
 import me.hmservice.domain.board.Board;
-import me.hmservice.domain.common.exception.FailedCreateBoardException;
-import me.hmservice.domain.common.exception.NotFoundException.BoardNotFoundException;
+import me.hmservice.common.exception.FailedCreateBoardException;
+import me.hmservice.common.exception.NotFoundException.BoardNotFoundException;
 import me.hmservice.user.board.BoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

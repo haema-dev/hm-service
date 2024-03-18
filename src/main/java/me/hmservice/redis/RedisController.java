@@ -1,6 +1,7 @@
 package me.hmservice.redis;
 
 
+import me.hmservice.common.result.Result;
 import me.hmservice.domain.person.Person;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,19 @@ public class RedisController {
   }
 
   @GetMapping("/redis/{id}")
-  public ResponseEntity<Person> getRedisValue(@PathVariable String id) {
-    return ResponseEntity.status(HttpStatus.OK).body(redisService.findByKeyInRedis(id));
+  public ResponseEntity<Result<Person>> getRedisValue(@PathVariable String id) {
+    return ResponseEntity.status(HttpStatus.OK).body(
+        Result.success(redisService.findByKeyInRedis(id))
+    );
   }
 
   @PostMapping("/redis")
-  public ResponseEntity<Person> setRedisValue(@RequestBody Person person) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(redisService.setRedisValue(person));
+  public ResponseEntity<Result<Person>> setRedisValue(@RequestBody Person person) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(
+        Result.success(
+            redisService.setRedisValue(person)
+        )
+    );
   }
 
 }

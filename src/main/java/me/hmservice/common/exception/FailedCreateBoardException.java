@@ -1,4 +1,4 @@
-package me.hmservice.domain.common.exception;
+package me.hmservice.common.exception;
 
 import lombok.Getter;
 

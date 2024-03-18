@@ -1,6 +1,6 @@
-package me.hmservice.domain.common.result;
+package me.hmservice.common.result;
 
-import me.hmservice.domain.common.error.ErrorCode;
+import me.hmservice.common.error.ErrorCode;
 
 public record Result<T>(T data, ErrorCode response, boolean isSuccess) {
 
