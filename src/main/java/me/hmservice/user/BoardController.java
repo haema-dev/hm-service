@@ -5,6 +5,8 @@ import me.hmservice.domain.board.BoardReq;
 import me.hmservice.domain.common.result.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +29,12 @@ public class BoardController {
           );
   }
 
-//  // 성공 예시
-//  Result<String> successResult = Result.success("성공적인 처리 결과");
-//
-//  // 실패 예시
-//  Result<String> failureResult = Result.failure("처리 중 에러 발생");
+  @GetMapping("/{id}")
+  public ResponseEntity<Result<Board>> getBoard(@PathVariable Long id) {
+
+    return ResponseEntity.status(HttpStatus.OK).body(
+        Result.success(boardService.getBoard(id))
+    );
+  }
 
 }
