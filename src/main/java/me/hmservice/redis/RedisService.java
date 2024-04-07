@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import me.hmservice.common.exception.NotFoundException.KeyNotFoundException;
-import me.hmservice.domain.person.Person;
+import me.hmservice.domain.auth.Token;
 import me.hmservice.redis.config.RedisConfig;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.stereotype.Service;
@@ -30,25 +30,19 @@ public class RedisService {
     }
   }
 
-//  public Person findByKeyInRedis(String key) {
-//    log.info("key: " + key);
-//    return Optional.ofNullable(redisConfig.redisTemplate().opsForValue().get(key))
-//        .map(name -> new Person(key, name))
-//        .orElseThrow(() -> new KeyNotFoundException("Redis 에서 해당 키를 찾을 수 없습니다 -> : " + key));
-//  }
-  public Person findByKeyInRedis(String key) {
+  public Token findByKeyInRedis(String key) {
     log.info("key: " + key);
     return executeRedisOperation(() -> redisConfig.redisTemplate().opsForValue().get(key))
-        .map(name -> new Person(key, name))
+        .map(name -> new Token(key, name))
         .orElseThrow(() -> new KeyNotFoundException("Redis 에서 해당 키를 찾을 수 없습니다 -> : " + key));
   }
 
-  public void successRedisValue(Person person) {
-    redisConfig.redisTemplate().opsForValue().set(person.getId(), person.getName());
+  public void successRedisValue(Token token) {
+    redisConfig.redisTemplate().opsForValue().set(token.getId(), token.getToken());
   }
 
-  public Person setRedisValue(Person person) {
-    successRedisValue(person);
-    return new Person(person.getId(), person.getName());
+  public Token setRedisValue(Token token) {
+    successRedisValue(token);
+    return new Token(token.getId(), token.getToken());
   }
 }

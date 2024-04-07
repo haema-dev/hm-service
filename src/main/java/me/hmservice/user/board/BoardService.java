@@ -1,10 +1,10 @@
-package me.hmservice.user;
+package me.hmservice.user.board;
 
 import io.micrometer.common.util.StringUtils;
 import me.hmservice.domain.board.Board;
 import me.hmservice.common.exception.FailedCreateBoardException;
 import me.hmservice.common.exception.NotFoundException.BoardNotFoundException;
-import me.hmservice.user.board.BoardRepository;
+import me.hmservice.domain.board.repo.BoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +36,6 @@ public class BoardService {
   private boolean isValidCreateBoard(Board board) {
     return !StringUtils.isBlank(board.getTitle()) &&
             !StringUtils.isBlank(board.getContent()) &&
-            !StringUtils.isBlank(board.getMember_id());
+            !StringUtils.isBlank(board.getMemberId());
   }
 }

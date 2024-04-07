@@ -21,17 +21,18 @@ public class Board {
   private Long id;
   private String title;
   private String content;
-  private String member_id;
-  private Timestamp created_by;
+  @Column(name = "member_id")
+  private String memberId;
+  @Column(name = "created_by")
+  private Timestamp createdBy;
 
   public Board() { }
 
   @Builder
-  public Board(String title, String content, String member_id, Timestamp created_by) {
+  public Board(String title, String content, String memberId, Timestamp createdBy) {
     this.title = title;
     this.content = content;
-    this.member_id = member_id;
-    this.created_by = created_by;
+    this.memberId = memberId;
+    this.createdBy = createdBy;
   }
-
 }
