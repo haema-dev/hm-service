@@ -1,4 +1,4 @@
-package me.hmservice.user.board;
+package me.hmservice.domain.board.repo;
 
 
 import me.hmservice.domain.board.Board;

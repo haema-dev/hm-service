@@ -1,4 +1,4 @@
-package me.hmservice.domain.common.error;
+package me.hmservice.common.error;
 
 
 import lombok.Builder;
